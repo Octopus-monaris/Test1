@@ -1,0 +1,70 @@
+---
+title: "Statistic course Murray 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Git
+
+Git is a distributed version control system
+the system consists of three trees:
+
+1. workspace  = filesystem
+-untracked --> uncommitted stages (junk) untracked, git does not know about it
+2. Staging Area = what to include in next snapshot what to commit
+-file is staged, git knows about it but it is not committed to snapshot
+3. Local Repository = saved
+-savely commited
+-or modified 
+
+#Git configuration
+
+Tipe this into R studio terminal:
+git config --global user.name "Your name"
+git config --global user.email "Your emailadress"
+Restart R studio
+
+check under tools --> global options --> git --> check if R studio find git
+
+It does not need to be the same name than your git hub account, since it is not linked. The purpose is to identify you so gith could contact you
+
+#R studio 
+
+#Create a new project
+File --> new project --> empty project --> where you tipe in the name of the new project you can tick a box to create a git repository for this project
+
+You get a new tap with Git next to Environment, History, Connections, Git
+
+
+##Do it from the command line:
+create folder w ith mkdir and change directory with cd and write git init
+go to projects in upper right corner and create in new project from existing repository
+
+#R project folder
+git creates 2 files:
+- bla.Rproj --> do not need to commit it
+-.blabla.gitignore --> you don't want do upload files that you don't want to add to git you can add to the file 
+so files you don't want to write to repository add it to this file, so git will never upload it 
+gitignore starts with a . since it is a hidden file
+
+#command line in terminal
+ls -la
+
+gives you .git file that makes it a git repository --> if you delete it it is no longer a git repository
+
+#Git tab:
+Check status of files 
+questionmarks = file exists but git does not know it
+tick the box so they are added
+to commit click commit and write a message with what you have done
+
+##Command line
+
+git commit -m 'initial commit message'
+
+##Cheat sheet
+www.rstudio.com/resources/cheatsheets/raw
+
