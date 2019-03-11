@@ -51,7 +51,7 @@ Type this into the shell (under small cogwheel --> shell)
 ### Create new project with the command line
 - open cogwheel and select shell
 
-```{r}
+```{r, eval=FALSE}
 mkdir project_name
 cd project_name
 git init
@@ -62,7 +62,7 @@ git init
 ### Git - adding content
 Stage the changes (add)
 
-```{r}
+```{r, eval=FALSE}
 git add <file(s)>
 #For example:
 #git add analysis.R
@@ -79,71 +79,66 @@ git creates 2 files:
 -.gitignore starts with a . since it is a hidden file
 - files that you never want to push to github are data files
 
-#command line in terminal
+###command line in terminal
 ls -la
 
 gives you .git file that makes it a git repository --> if you delete it it is no longer a git repository
 
-#Git tab:
-Check status of files 
-questionmarks = file exists but git does not know it
-tick the box so they are added
-to commit click commit and write a message with what you have done
+###commit changes 
+-Check status of files under git tab
+-Questionmarks = file exists but git does not know it
+-Tick the box so they are added
+-To commit, click commit and write a message with what you have done
+-Commited files are save even if you delete everything
+-Github used hash (40 digits) to see changes --> if hases are the same, the files are the same
+-If you add something to a file and save it then you can see it under git with a M
+-Commit often since commits are cheap!
+-After 30 days, git saves only the differences not the whole file
 
-##Command line
+##commit changes on command line
 
 git commit -m 'initial commit message'
 
-commited files are save even if you delete everything
+### History
+- SHA hash code include identiy of author
+- If you want to go back to a certain version you have to use the hash code
+- By default we are in master branch but we can also make a branch if we collaborate with somebody
+- head = to identify where to add new commit?
 
-Github used hash (40 digits) to see changes if hases are the same, the files are the same
+### Tags
+-Applying tags can be useful if you want to go back to a version 
+-Add tag by clicking on cogwheek --> shell and type in:
 
-
-# - History
-SHA hash code include identiy of auther
-if you want to go back to a chertain version you have to use the has code
-
-by default we are in master branch but we can also make a branch if we collaborate with somebody
-head = to identify where to add new commit???
-
-if you add something to a file and save it then you can see it under git with a M
-
-commit often since commits are cheap
-
-after 30 days they saves only the differences not the whole file
-
-tag: applying tags can be useful if you want to go back to a version 
-add tag by klicking on zahnrad (kogg) --> shell and type in:
 git tag -a 'V.1' -m 'Version 1'
 
-in the history, a small tag with the name appears
+-in the history, a small tag with the name appears
 
-## go back to special version:
+## Go back to special version
 
-###1. checkout
-tipe in shell:
+###1. Checkout
+-Type in shell:
+
 git checkout hash#
 
-you find the hash number in the history(clock)
-detached head line
-
-you can go back to last created version using the tag
+- you find the hash number in the history (clock)
+- detached head line
+- you can go back to last created version using the tag
 
 git checkout tag
 
-###2. reset 
---> removes last node but not good if you collaborate
-only if you want to delete eg data that you don't want to commit
-###3. revert 
---> what did i do but you can revert it. the wrong state still exists in case others are working on it
-3rd way is the best
+###2. Reset 
+-Removes last node but not good if you collaborate
+-Only if you want to delete e.g. data that you don't want to commit
 
-you can only reverse 1 step at a time 
-you don't need to know the number becasue it is head
+###3. Revert 
+-what did i do?? No worries you can revert it
+-the wrong state still exists in case others are working on it
+-best solution to go back to a previous version
+-you can only reverse 1 step at a time 
+-you don't need to know the number because it is head
 
 ##Branching 
-
-by default we are on the main branch 
+-by default we are on the main branch 
 
 shell:
 git checkout -b <Name>
@@ -152,53 +147,51 @@ git checkout -b <Name>
 
 problem did not merge
 
+#Remote repositories and github
 
-#connect new repository from github to R studio project folder
-go to git hub add new repository and 
-type in shell:
+##connect new repository from github to R studio project folder
+- go to git hub add new repository 
+- type in shell:
 
-git remote add origin git@github.com:Octopus-monaris/Test1.git # origin is local to 
-git push -u origin master
--->push local to master branch
+git remote add origin git@github.com:Octopus-monaris/Test1.git
+git push -u origin master #push local to master branch
 
 
-#Collaborate:
-new project from existing project get  clone repository link
+##Collaborate and share a directory
+- New project --> from existing project --> getclone repository link of directory
+- before they can push new versions you have to invite them
+- github repository -->settings --> collaborations --> send invitation to person
+- if you are working together on a script you have to pull the latest version before you start working
 
-before they can push new versions you have to invite them
-github repository setting collaborations send invitation to person
+#R
 
-if you are working together on a script you have to pull the latest version
-
-#Installing packages
+##Installing packages
 
 install.packages('package_name')
 
 ##Check were new packages will be saved
 .libPaths()
 
-#Output:
-if you only have one place than all your packages will be compatible
+- If the output only mentions one place with all your packages it's good and will be compatible
+- If you have packages in multiple locations it gets super confusing --> you get out of sinc
 
-if you have packages in multiple locations it gets super confusing --> you get out of sinc
-
-##Cheat sheet
+##Cheat sheets
 www.rstudio.com/resources/cheatsheets/raw
 
 #Rmarkdown
 
-tool pandoc
-converts md file into approx. 80 other filetypes
+##tool pandoc
+- converts md file into approx. 80 other filetypes
 -integrated into rstudio
 
-Metadata are defined in the first block
+##Metadata
 
-starts with
----
-
-format is in YAML 
-
-html is standalone one file and all images are embedded into 1 file no internet access
+- Metadata are defined in the first block
+- starts with ---
+- format is in YAML 
+- you can knit to html, pdf or word file
+- html is standalone one file and all images are embedded into 1 file --> no internet access required
+- to knit into PDFs you need to install LATEX 
 
 Rmarkdown cheat sheet
 # Section 1 {#Section1}
@@ -208,7 +201,6 @@ citations:
 
 write citation(Package name) into console
 
-to knit into PDFs you need to install LATEX 
 
 #Basic R
 Data are stored in different objects
