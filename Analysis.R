@@ -4,3 +4,4 @@ plot(x,y)
 
 mean(y)
 new 
+Jess change
