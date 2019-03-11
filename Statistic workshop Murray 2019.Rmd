@@ -7,10 +7,11 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#Git
+#Git hub
 
-Git is a distributed version control system
-the system consists of three trees:
+Git - is a distributed version control system
+Git - stores snapshots of the filesystem - commits
+The system consists of three trees:
 
 1. workspace  = filesystem
 -untracked --> uncommitted stages (junk) untracked, git does not know about it
@@ -65,6 +66,452 @@ to commit click commit and write a message with what you have done
 
 git commit -m 'initial commit message'
 
+commited files are save even if you delete everything
+
+Github used hash (40 digits) to see changes if hases are the same, the files are the same
+
+
+# - History
+SHA hash code include identiy of auther
+if you want to go back to a chertain version you have to use the has code
+
+by default we are in master branch but we can also make a branch if we collaborate with somebody
+head = to identify where to add new commit???
+
+if you add something to a file and save it then you can see it under git with a M
+
+commit often since commits are cheap
+
+after 30 days they saves only the differences not the whole file
+
+tag: applying tags can be useful if you want to go back to a version 
+add tag by klicking on zahnrad (kogg) --> shell and type in:
+git tag -a 'V.1' -m 'Version 1'
+
+in the history, a small tag with the name appears
+
+## go back to special version:
+
+###1. checkout
+tipe in shell:
+git checkout hash#
+
+you find the hash number in the history(clock)
+detached head line
+
+you can go back to last created version using the tag
+
+git checkout tag
+
+###2. reset 
+--> removes last node but not good if you collaborate
+only if you want to delete eg data that you don't want to commit
+###3. revert 
+--> what did i do but you can revert it. the wrong state still exists in case others are working on it
+3rd way is the best
+
+you can only reverse 1 step at a time 
+you don't need to know the number becasue it is head
+
+##Branching 
+
+by default we are on the main branch 
+
+shell:
+git checkout -b <Name>
+
+##Merge braches
+
+problem did not merge
+
+
+#connect new repository from github to R studio project folder
+go to git hub add new repository and 
+type in shell:
+
+git remote add origin git@github.com:Octopus-monaris/Test1.git # origin is local to 
+git push -u origin master
+-->push local to master branch
+
+
+#Collaborate:
+new project from existing project get  clone repository link
+
+before they can push new versions you have to invite them
+github repository setting collaborations send invitation to person
+
+if you are working together on a script you have to pull the latest version
+
+#Installing packages
+
+install.packages('package_name')
+
+##Check were new packages will be saved
+.libPaths()
+
+#Output:
+if you only have one place than all your packages will be compatible
+
+if you have packages in multiple locations it gets super confusing --> you get out of sinc
+
 ##Cheat sheet
 www.rstudio.com/resources/cheatsheets/raw
+
+#Rmarkdown
+
+tool pandoc
+converts md file into approx. 80 other filetypes
+-integrated into rstudio
+
+Metadata are defined in the first block
+
+starts with
+---
+
+format is in YAML 
+
+html is standalone one file and all images are embedded into 1 file no internet access
+
+Rmarkdown cheat sheet
+# Section 1 {#Section1}
+Section heading including tag
+
+citations:
+
+write citation(Package name) into console
+
+to knit into PDFs you need to install LATEX 
+
+#Basic R
+Data are stored in different objects
+e.g
+vector e.g this vector from 1 to 10
+```{r}
+1:10
+```
+ is the index to 
+```{r}
+RESP1=1:4 # does not print it
+(RESP1=1:4)
+#assign and prints result in one step
+```
+```{r}
+RESP1=1:4
+RESP1<-1:4
+```
+
+equal is also a way to specify an argument, so you get an error if you want to assign it in a summary (a<-lm(1:10~rnorm(10)))
+
+vectors can store words
+
+```{r}
+RESP2 = c("big","big", "small","small")
+```
+
+```{r}
+RESP3 = rnorm(4,10,3)
+RESP3[1]
+```
+
+Matrix has lenght and width ( columns and rows)
+matrix all columns need to be of the same type
+
+```{r}
+MAT1=cbind(RESP1, RESP3)
+MAT1
+
+```
+
+if you want ach column different types then you need a dataframe
+
+```{r}
+DF=data.frame(RESP1,RESP2,RESP3)
+DF
+
+```
+
+#list
+anything can go into a list
+used for output
+for Baesian analysis
+```{r}
+LIST=list()
+```
+
+#tibble
+dataframe but saver:
+1. tibble garanties that it will fit on your screen and excludes some rows to keep it neat
+2. dataframe recycle around --> in tibble will not recycle
+3. tibbles can embedd lists and other dataframes into one cell
+
+```{r}
+seq(from=1, to=10, by=2)
+```
+
+Functions in R:
+- you can move arguments around 
+- you don't need write argument names but it is less easy to read for unfamiliear people
+
+#get help
+
+? function_name
+
+there are different types of functions and if you need help you need to now exactly how they are called
+overloeading of functions
+
+write helps only in console not in Rmarkdown 
+
+#Packages
+like a book
+
+install package = buy book
+load package = put book on desk --> library(package_name)
+in conflicts warning be aware that some books cover other books on desk
+detach = brings book back to shelf from desk
+
+by indicating namespace we can specify which function of which package we want to use
+stats::filter
+
+conflicts are indicated by loading packages
+
+the function select always need namespache
+
+dplyr::select
+
+some people write namespace before each function to make code more robust
+
+add block with all packages loading in the top
+
+```{r}
+ls()
+
+```
+
+lists what we created
+
+when we close rstudio do you want to save workspace? choose no!!! becasue if old varables are loaded automatically, you can work with old versions without knowing it
+
+save(RESP1, file='RESP1.RData')
+
+# Getting data into R
+
+```{r}
+library(tidyverse)
+```
+
+Data import cheat sheet
+
+make sure you have loaded tidyverse
+
+always write variables in capital letters so you don't overwrite functions
+
+
+
+#Create dataset and export it
+
+always write variables in capital letters so you don't overwrite functions
+write_csv is newer compared to write.csv
+```{r}
+TREATMENT=gl(2,3,6, labels=c('High','Low'))
+TREATMENT
+DATE = gl(3,1,6,labels =c('29/02/2000','21/02/2002','20/02/2004'))
+DATE
+RESPONSE=round(rnorm(6,10,3),2)
+RESPONSE
+test_data=data.frame(TREATMENT,DATE,RESPONSE)
+test_data
+write_csv(test_data, path='test_data.csv')
+
+```
+
+#Import dataset
+best to transform spread sheets into csv and load it into R
+```{r}
+test_data1 = read_csv(file='test_data.csv')
+```
+we need to modyfy the specifications
+
+```{r}
+test_data = read_csv('test_data.csv', col_types=cols(TREATMENT=col_factor(NULL),DATE=col_date(format='%d/%m/%Y')))
+```
+NULL uses abc
+Y = 4 digid year
+y = 2 digid year
+
+```{r}
+test_data
+```
+
+tibble shows the type of the data
+
+```{r}
+knitr::kable(test_data)
+```
+
+```{r}
+glimpse(test_data)
+```
+
+shows all columns and a few rows
+
+```{r}
+str(test_data)
+```
+lot more information
+
+
+###summary
+
+```{r}
+summary(test_data)
+```
+#short cuts 
+
+Ctrl + Alt + i --> insert code chunk
+Ctrl + shift + m --> pipe
+#Pipes
+%/%
+```{r}
+test_data %>% summary
+```
+#Important data manipulation tools
+
+arrange ()
+
+gather
+spread
+unite
+separate
+
+check out cheat sheet
+
+#Download data set from website
+
+```{r}
+load(url("http://www.flutterbys.com.au/stats/downloads/data/manipulationDatasets.RData"))
+
+```
+
+```{r}
+ls()
+
+```
+
+```{r}
+head(data.1)
+```
+#Sorting data
+sort data by latitude
+```{r}
+arrange (data.1, LAT)
+```
+pipe works with any function when first thing is a dataset
+```{r}
+data.1a = data.1 %>% arrange(LAT)
+```
+sort from lowest to highest latitude
+
+if you want to have decrease order use 
+
+```{r}
+data.1b = data.1 %>% arrange(-LAT)
+```
+
+sort by 2 columns
+```{r}
+data.1c = data.1 %>% arrange(Cond, Temp)
+```
+
+you can also sort by calculations
+```{r}
+data.1d = data.1 %>% arrange(Lat+Temp)
+```
+
+sort by between and condition
+```{r}
+data.1d = data.1 %>% arrange(Between, Cond)
+```
+
+```{r}
+data.1e = data.1 %>% arrange(Cond, Temp/LAT)
+```
+
+
+#Categorical variables
+```{r}
+data.1$Cond
+```
+
+```{r}
+data.1[,'Cond']
+```
+out of level due to alphabetical order 
+
+routine is order level and names directly after reading it in
+
+only changes levels but will not arrange data
+```{r}
+data.3<- data.1 %>% mutate(Cond=recode_factor(Cond,'L'='Low', 'M'='Medium', 'H'='High'))
+data.3
+levels(data.3$Cond)
+```
+
+```{r}
+data.1 %>% dplyr::select(Between,Plot,Temp,Cond,Time) %>% head
+```
+output will be same order than in the selection function
+
+# exclude columns
+```{r}
+data.1 %>% dplyr::select(-LAT, -LONG) %>% head
+```
+
+```{r}
+data.1 %>% dplyr::select(Between, Plot) %>% distinct
+```
+
+is distinct the same than unique?
+a lot of overlap but some differences 
+distinct is written in tidyverse so it always works but unique can have troubble
+
+#pattern matching
+check out cheat sheet for more helper functions
+contains()
+
+```{r}
+dplyr::select(data.1, Between, contains('L'))
+```
+
+
+```{r}
+dplyr::select(data.1, matches('^T[a-z]m.'))
+```
+
+^= first charachter
+. any characterer
+[a-z] = any lower character 
+3 character must be an m
+* any number of
+$ last character
+
+regex there is a cheat sheet
+
+```{r}
+dplyr::select(data.1, Between:Temp)
+```
+
+this can be really dangerous since Between:Time depends on order which can change quickly
+
+
+```{r}
+nasa %>% dplyr::select(lat,long, starts_with('cloud')) %>% head
+```
+
+```{r}
+nasa %>% dplyr::select(lat,long, matches('^cloud.*')) %>% head
+```
+show rep, time and other coloums that does not include pora in the name
+```{r}
+tikus %>% dplyr::select(rep,time, everything(), -contains('pora')) %>% head
+```
 
