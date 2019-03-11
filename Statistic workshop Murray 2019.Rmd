@@ -7,49 +7,77 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#Git hub
+#Git 
 
-Git - is a distributed version control system
-Git - stores snapshots of the filesystem - commits
+Git is a distributed version control system
+Git stores snapshots of the filesystem 
 The system consists of three trees:
 
-1. workspace  = filesystem
--untracked --> uncommitted stages (junk) untracked, git does not know about it
-2. Staging Area = what to include in next snapshot what to commit
--file is staged, git knows about it but it is not committed to snapshot
+  1. Workspace = filesystem
+      - untracked --> uncommitted stages (junk) untracked, git does not know about it
+  2. Staging Area = what to include in next snapshot what to commit
+      -file is staged, git knows about it but it is not committed to snapshot
 3. Local Repository = saved
--savely commited
--or modified 
+      -savely commited
 
-#Git configuration
 
-Tipe this into R studio terminal:
-git config --global user.name "Your name"
-git config --global user.email "Your emailadress"
-Restart R studio
+Files can be in one of four states:
+1. untracked
+2. staged
+3. committed
+4. modified
 
-check under tools --> global options --> git --> check if R studio find git
+##Git configuration
 
-It does not need to be the same name than your git hub account, since it is not linked. The purpose is to identify you so gith could contact you
+You only have to do it after new installation.
+Type this into the shell (under small cogwheel --> shell)
+
+```{r}
+#git config --global user.name "Your name"
+#git config --global user.email "Your emailadress"
+```
+- Restart R studio after configuration
+- check under tools --> global options --> git --> check if R studio can find git
+- The name and email adress does not need to be the same name than your git hub account, since it is not linked. 
+- The purpose is to identify you so git could contact you
 
 #R studio 
 
-#Create a new project
-File --> new project --> empty project --> where you tipe in the name of the new project you can tick a box to create a git repository for this project
+##Create a new project
+- File --> new project --> empty project --> where you type in the name of the new project you can tick a box to create a git repository for this project
+- You get a new tap with Git next to Environment, History, Connections, Git
 
-You get a new tap with Git next to Environment, History, Connections, Git
 
+### Create new project with the command line
+- open cogwheel and select shell
 
-##Do it from the command line:
-create folder w ith mkdir and change directory with cd and write git init
-go to projects in upper right corner and create in new project from existing repository
+```{r}
+mkdir project_name
+cd project_name
+git init
+#create folder with mkdir and change directory with cd to write git init
+```
+- go to projects in upper right corner and create in new project from existing repository
 
-#R project folder
+### Git - adding content
+Stage the changes (add)
+
+```{r}
+git add <file(s)>
+#For example:
+#git add analysis.R
+```
+
+##R project folder
 git creates 2 files:
 - bla.Rproj --> do not need to commit it
--.blabla.gitignore --> you don't want do upload files that you don't want to add to git you can add to the file 
-so files you don't want to write to repository add it to this file, so git will never upload it 
-gitignore starts with a . since it is a hidden file
+-.blabla.gitignore 
+
+###.gitignore
+
+- You can write files that you don't want to upload to git into .gitignore, so git ignores them and you will never upload them
+-.gitignore starts with a . since it is a hidden file
+- files that you never want to push to github are data files
 
 #command line in terminal
 ls -la
